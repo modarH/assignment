@@ -1,17 +1,25 @@
 # https://github.com/modarH/assignment
 language: node_js
-
 node_js:
-  - "10.9.0"
+  - 10.9.0
 
 cache: npm
 
-before_install:
-  - mkdir dist/
-  - ls -la
+env:
+  - NOW_TOKEN=Kkk6p56FPUYLArKsWnRhk3pr
 
 install:
-  - ls -la
   - npm install
-  - ls -la
 
+script:
+  - npm run build
+  - npm run test
+  
+before_install:
+  - "npm config set spin false"
+  - npm i -g now
+
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh
+  skip_cleanup: true
